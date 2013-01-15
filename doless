@@ -1,0 +1,15 @@
+#!/bin/sh
+
+f=$1.css
+fm=$1-min.css
+
+if [ ! -f $f ]; then
+	echo $f: No such file 1>&2
+	exit 0
+fi	
+
+lessc $f > $fm
+echo "LESS'd \033[38;5;148m$f\033[39m into \033[38;5;148m$fm\033[39m using \033[38;5;148mNodeJS\033[39m"
+java -jar ~/git/node/yuicompressor/build/yuicompressor-2.4.8pre.jar $fm -o $fm
+echo "Compressed \033[38;5;148m$fm\033[39m using YUI"
+echo Done.

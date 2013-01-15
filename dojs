@@ -1,0 +1,23 @@
+#!/bin/sh
+
+f=$1.js
+
+if [ ! -f $f ]; then
+	echo $f: No such file 1>&2
+	exit 0
+fi	
+
+echo "\033[38;5;148mJSLint\033[39m"
+
+errors=$(jslint --nomen $f)
+ok="$f is OK"
+echo "$errors"
+echo
+
+if [[ $errors == *"$ok"* ]] 
+then
+	echo "\033[38;5;148mJSHint\033[39m"
+	grunt --relpath ${PWD}/$1 --jsfile $f	
+else
+	echo YOU FAILED.
+fi	
