@@ -1,4 +1,6 @@
-n() {
+#!/bin/bash
+
+main() {
   REMOTES="$@";
   if [ -z "$REMOTES" ]; then
     REMOTES=$(git remote);
