@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sudo /usr/local/apache/bin/apachectl restart
+
+antdo clean dumas-dev && /usr/local/jboss/bin/run.sh -c dumas
