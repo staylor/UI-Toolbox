@@ -12,11 +12,11 @@ function hash_key( $input )  {
 	$block_size = mcrypt_get_block_size( MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB );
 	$input = pkcs5_pad( $input, $block_size );
 
-	return base64_encode( mcrypt_encrypt( MCRYPT_RIJNDAEL_128, md5( SECRET ), $input, MCRYPT_MODE_ECB ) );
+	return base64_encode( mcrypt_encrypt( MCRYPT_RIJNDAEL_128, md5( SECRET, true ), $input, MCRYPT_MODE_ECB ) );
 }
 
 function dehash_key() {
-	return mcrypt_decrypt( MCRYPT_RIJNDAEL_128, md5( SECRET ), base64_decode( THE_RESULT ), MCRYPT_MODE_ECB );
+	return mcrypt_decrypt( MCRYPT_RIJNDAEL_128, md5( SECRET, true ), base64_decode( THE_RESULT ), MCRYPT_MODE_ECB );
 }
 
 ?>
