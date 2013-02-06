@@ -1,0 +1,20 @@
+#!/bin/sh
+
+git checkout master;
+
+svnrepo=`git svn info --url`
+
+git svn fetch;
+
+git svn rebase;
+
+git push origin master;
+
+git for-each-ref refs/remotes/tags | cut -d / -f 4- | while read ref; do git tag $ref refs/remotes/tags/$ref > /dev/null 2>&1; done;
+
+svn list ${svnrepo//trunk/branches} | grep -oE '[^/]+' | while read branch; do git branch $branch-branch remotes/$branch > /dev/null 2>&1; git checkout $branch; if [ '0' != `git diff --name-only remotes/$branch | wc -l | awk "{print $1}"` ]; then git svn rebase remotes/$branch; git push origin $branch; fi; done
+
+git checkout master;
+
+git push --tags origin;
+git push --all origin;

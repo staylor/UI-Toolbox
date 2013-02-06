@@ -1,6 +1,6 @@
 #!/bin/sh
 
-f=$1.css
+f=$1.less
 fm=$1-min.css
 
 if [ ! -f $f ]; then

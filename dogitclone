@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cd ~/git/plugins
+
+git svn clone -t tags -b branches -T trunk $1 $2
+
+cd $2
+
+git svn fetch
+
+git svn rebase
+
+git branch -r

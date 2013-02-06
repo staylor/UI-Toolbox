@@ -1,0 +1,28 @@
+#!/opt/local/bin/php54
+<?php
+define( 'SECRET', '75799ae0-82a2-4d0f-9179-f71598dcb277' );
+define( 'THE_RESULT', '/uC1ymwhm35vdN78VO9q042AIB7wWyNJcsPECxZDcQk=' );
+
+function pkcs5_pad( $text, $block_size ) {
+	$pad = $block_size - ( strlen( $text ) % $block_size );
+	return $text . str_repeat( chr( $pad ), $pad );
+}
+
+function hash_key( $input )  {
+	$block_size = mcrypt_get_block_size( MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB );
+	$input = pkcs5_pad( $input, $block_size );
+
+	return base64_encode( mcrypt_encrypt( MCRYPT_RIJNDAEL_128, md5( SECRET ), $input, MCRYPT_MODE_ECB ) );
+}
+
+function dehash_key() {
+	return mcrypt_decrypt( MCRYPT_RIJNDAEL_128, md5( SECRET ), base64_decode( THE_RESULT ), MCRYPT_MODE_ECB );
+}
+
+?>
+This should be: <?php echo THE_RESULT ?>
+But it's really: <?php
+
+echo hash_key( 'XkeJoJaLR6G2-f-PSJubxA' ) . PHP_EOL; ?>
+
+Dehashed is: <?php echo dehash_key( THE_RESULT ) ?>

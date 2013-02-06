@@ -1,0 +1,4 @@
+#!/bin/sh
+
+scp -r ~/git/emusic/dumas/dumas/tmp/dumas-prod-$1.tar.gz abv-pos-01.ny.emusic.com:/release
+scp -r ~/git/emusic/dumas/dumas/tmp/static-prod-$2.tar.gz abv-pos-01.ny.emusic.com:/release

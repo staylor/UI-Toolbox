@@ -9,7 +9,7 @@ fi
 
 echo "\033[38;5;148mJSLint\033[39m"
 
-errors=$(jslint --nomen $f)
+errors=$(jslint --nomen --bitwise --regexp $f)
 ok="$f is OK"
 echo "$errors"
 echo
